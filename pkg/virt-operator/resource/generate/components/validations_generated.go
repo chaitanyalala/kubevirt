@@ -4196,6 +4196,10 @@ var CRDsValidation map[string]string = map[string]string{
                             - name
                             type: object
                           type: array
+                        iommu:
+                          description: To enable a virtual IOMMU. If not enabled,
+                            VFIO-PCI and nested virtualization will not work.
+                          type: object
                         networkInterfaceMultiqueue:
                           description: If specified, virtual network interfaces configured
                             with a virtio bus will also enable the vhost multiqueue
@@ -7151,6 +7155,10 @@ var CRDsValidation map[string]string = map[string]string{
                     - name
                     type: object
                   type: array
+                iommu:
+                  description: To enable a virtual IOMMU. If not enabled, VFIO-PCI
+                    and nested virtualization will not work.
+                  type: object
                 networkInterfaceMultiqueue:
                   description: If specified, virtual network interfaces configured
                     with a virtio bus will also enable the vhost multiqueue feature
@@ -9147,6 +9155,10 @@ var CRDsValidation map[string]string = map[string]string{
                     - name
                     type: object
                   type: array
+                iommu:
+                  description: To enable a virtual IOMMU. If not enabled, VFIO-PCI
+                    and nested virtualization will not work.
+                  type: object
                 networkInterfaceMultiqueue:
                   description: If specified, virtual network interfaces configured
                     with a virtio bus will also enable the vhost multiqueue feature
@@ -10933,6 +10945,10 @@ var CRDsValidation map[string]string = map[string]string{
                             - name
                             type: object
                           type: array
+                        iommu:
+                          description: To enable a virtual IOMMU. If not enabled,
+                            VFIO-PCI and nested virtualization will not work.
+                          type: object
                         networkInterfaceMultiqueue:
                           description: If specified, virtual network interfaces configured
                             with a virtio bus will also enable the vhost multiqueue
@@ -14443,6 +14459,11 @@ var CRDsValidation map[string]string = map[string]string{
                                         - name
                                         type: object
                                       type: array
+                                    iommu:
+                                      description: To enable a virtual IOMMU. If not
+                                        enabled, VFIO-PCI and nested virtualization
+                                        will not work.
+                                      type: object
                                     networkInterfaceMultiqueue:
                                       description: If specified, virtual network interfaces
                                         configured with a virtio bus will also enable

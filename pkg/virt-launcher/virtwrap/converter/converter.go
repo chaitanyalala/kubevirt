@@ -875,6 +875,25 @@ func Convert_v1_Rng_To_api_Rng(_ *v1.Rng, rng *api.Rng, c *ConverterContext) err
 	return nil
 }
 
+func Convert_v1_Iommu_To_api_Iommu(_ *v1.IommuDevice, iommu *api.Iommu, c *ConverterContext) error {
+
+	// default iommu model for KVM/QEMU virtualization with Q35 chipset
+	iommu.Model = translateModel(c, "intel")
+
+	// default backend model, random
+	iommu.Driver = &api.IommuDriver{
+		// for now, keep Interrupt Remapping disabled because it also needs
+		// <ioapic driver='qemu'/> to be set in Hypervisor features which requires
+		// some analysis before enablement due to fear of breaking exisitng features
+		// TODO
+		Intremap:    "off",
+		CachingMode: "on",
+		Iotlb:       "on",
+	}
+
+	return nil
+}
+
 func Convert_v1_Usbredir_To_api_Usbredir(vmi *v1.VirtualMachineInstance, domainDevices *api.Devices, _ *ConverterContext) (bool, error) {
 	clientDevices := vmi.Spec.Domain.Devices.ClientPassthrough
 
@@ -1493,6 +1512,15 @@ func Convert_v1_VirtualMachineInstance_To_api_Domain(vmi *v1.VirtualMachineInsta
 			return err
 		}
 		domain.Spec.Devices.Rng = newRng
+	}
+
+	if vmi.Spec.Domain.Devices.Iommu != nil {
+		newIommu := &api.Iommu{}
+		err := Convert_v1_Iommu_To_api_Iommu(vmi.Spec.Domain.Devices.Iommu, newIommu, c)
+		if err != nil {
+			return err
+		}
+		domain.Spec.Devices.Iommu = newIommu
 	}
 
 	isUSBDevicePresent := false

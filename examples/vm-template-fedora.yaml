@@ -43,6 +43,7 @@ objects:
             - masquerade: {}
               model: virtio
               name: default
+            iommu: {}
             networkInterfaceMultiqueue: true
             rng: {}
           resources:

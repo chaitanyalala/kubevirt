@@ -465,6 +465,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"kubevirt.io/client-go/apis/core/v1.InterfaceMasquerade":                                   schema_client_go_apis_core_v1_InterfaceMasquerade(ref),
 		"kubevirt.io/client-go/apis/core/v1.InterfaceSRIOV":                                        schema_client_go_apis_core_v1_InterfaceSRIOV(ref),
 		"kubevirt.io/client-go/apis/core/v1.InterfaceSlirp":                                        schema_client_go_apis_core_v1_InterfaceSlirp(ref),
+		"kubevirt.io/client-go/apis/core/v1.IommuDevice":                                           schema_client_go_apis_core_v1_IommuDevice(ref),
 		"kubevirt.io/client-go/apis/core/v1.KVMTimer":                                              schema_client_go_apis_core_v1_KVMTimer(ref),
 		"kubevirt.io/client-go/apis/core/v1.KernelBoot":                                            schema_client_go_apis_core_v1_KernelBoot(ref),
 		"kubevirt.io/client-go/apis/core/v1.KernelBootContainer":                                   schema_client_go_apis_core_v1_KernelBootContainer(ref),
@@ -19996,11 +19997,17 @@ func schema_client_go_apis_core_v1_Devices(ref common.ReferenceCallback) common.
 							Ref:         ref("kubevirt.io/client-go/apis/core/v1.ClientPassthroughDevices"),
 						},
 					},
+					"iommu": {
+						SchemaProps: spec.SchemaProps{
+							Description: "To enable a virtual IOMMU. If not enabled, VFIO-PCI and nested virtualization will not work.",
+							Ref:         ref("kubevirt.io/client-go/apis/core/v1.IommuDevice"),
+						},
+					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"kubevirt.io/client-go/apis/core/v1.ClientPassthroughDevices", "kubevirt.io/client-go/apis/core/v1.Disk", "kubevirt.io/client-go/apis/core/v1.Filesystem", "kubevirt.io/client-go/apis/core/v1.GPU", "kubevirt.io/client-go/apis/core/v1.HostDevice", "kubevirt.io/client-go/apis/core/v1.Input", "kubevirt.io/client-go/apis/core/v1.Interface", "kubevirt.io/client-go/apis/core/v1.Rng", "kubevirt.io/client-go/apis/core/v1.Watchdog"},
+			"kubevirt.io/client-go/apis/core/v1.ClientPassthroughDevices", "kubevirt.io/client-go/apis/core/v1.Disk", "kubevirt.io/client-go/apis/core/v1.Filesystem", "kubevirt.io/client-go/apis/core/v1.GPU", "kubevirt.io/client-go/apis/core/v1.HostDevice", "kubevirt.io/client-go/apis/core/v1.Input", "kubevirt.io/client-go/apis/core/v1.Interface", "kubevirt.io/client-go/apis/core/v1.IommuDevice", "kubevirt.io/client-go/apis/core/v1.Rng", "kubevirt.io/client-go/apis/core/v1.Watchdog"},
 	}
 }
 
@@ -21403,6 +21410,17 @@ func schema_client_go_apis_core_v1_InterfaceSlirp(ref common.ReferenceCallback) 
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
+			},
+		},
+	}
+}
+
+func schema_client_go_apis_core_v1_IommuDevice(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Represent virtual IOMMU device that can be accessed by VMI.\n\nThe struct is currently empty as there is no imediate request for user-facing APIs. This structure simply turns add a virtual IOMMU device with sane default paramters.",
+				Type:        []string{"object"},
 			},
 		},
 	}

@@ -18,6 +18,7 @@ spec:
       interfaces:
       - macvtap: {}
         name: macvtap
+      iommu: {}
       rng: {}
     resources:
       requests:

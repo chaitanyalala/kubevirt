@@ -18,6 +18,7 @@ spec:
       gpus:
       - deviceName: nvidia.com/GP102GL_Tesla_P40
         name: gpu1
+      iommu: {}
       rng: {}
     resources:
       requests:

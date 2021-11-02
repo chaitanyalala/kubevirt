@@ -454,6 +454,7 @@ type Devices struct {
 	Rng         *Rng               `xml:"rng,omitempty"`
 	Filesystems []FilesystemDevice `xml:"filesystem,omitempty"`
 	Redirs      []RedirectedDevice `xml:"redirdev,omitempty"`
+	Iommu       *Iommu             `xml:"iommu,omitempty"`
 }
 
 // RedirectedDevice describes a device to be redirected
@@ -1005,6 +1006,57 @@ type RngBackend struct {
 
 type IOThreads struct {
 	IOThreads uint `xml:",chardata"`
+}
+
+/*
+IOMMU devices
+The iommu element can be used to add an IOMMU device. Since 2.1.0
+
+Example:
+
+...
+<devices>
+  <iommu model='intel'>
+    <driver intremap='on'/>
+  </iommu>
+</devices>
+...
+model
+Supported values are intel (for Q35 guests) and, since 5.5.0 , smmuv3 (for ARM virt guests).
+
+driver
+The driver subelement can be used to configure additional options, some of which might only be available for certain IOMMU models:
+
+       intremap
+       The intremap attribute with possible values on and off can be used to turn on interrupt remapping, a part of the VT-d functionality. Currently this requires split I/O APIC (<ioapic driver='qemu'/>). Since 3.4.0 (QEMU/KVM only)
+
+       caching_mode
+       The caching_mode attribute with possible values on and off can be used to turn on the VT-d caching mode (useful for assigned devices). Since 3.4.0 (QEMU/KVM only)
+
+       eim
+       The eim attribute (with possible values on and off) can be used to configure Extended Interrupt Mode. A q35 domain with split I/O APIC (as described in hypervisor features), and both interrupt remapping and EIM turned on for the IOMMU, will be able to use more than 255 vCPUs. Since 3.4.0 (QEMU/KVM only)
+
+       iotlb
+       The iotlb attribute with possible values on and off can be used to turn on the IOTLB used to cache address translation requests from devices. Since 3.5.0 (QEMU/KVM only)
+
+       aw_bits
+       The aw_bits attribute can be used to set the address width to allow mapping larger iova addresses in the guest. Since 6.5.0 (QEMU/KVM only)
+*/
+
+// Virtual IOMMU device which safe permits device passthru
+type Iommu struct {
+	// Model indicates the type of IOMMU. For Q35/x86 systems, intel is the value.
+	// Supported values: intel.
+	Model string `xml:"model,attr"`
+	// Driver attributes to control vIOMMU operation
+	Driver *IommuDriver `xml:"driver,omitempty"`
+}
+
+// The driver subelement can be used to configure additional options for vIOMMU
+type IommuDriver struct {
+	Intremap    string `xml:"intremap,attr"`
+	CachingMode string `xml:"caching_mode,attr"`
+	Iotlb       string `xml:"iotlb,attr"`
 }
 
 // TODO ballooning, rng, cpu ...

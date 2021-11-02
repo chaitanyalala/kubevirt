@@ -249,6 +249,13 @@ func (Devices) SwaggerDoc() map[string]string {
 		"filesystems":                "Filesystems describes filesystem which is connected to the vmi.\n+optional\n+listType=atomic",
 		"hostDevices":                "Whether to attach a host device to the vmi.\n+optional\n+listType=atomic",
 		"clientPassthrough":          "To configure and access client devices such as redirecting USB\n+optional",
+		"iommu":                      "To enable a virtual IOMMU. If not enabled, VFIO-PCI and nested virtualization will not work.\n+optional",
+	}
+}
+
+func (IommuDevice) SwaggerDoc() map[string]string {
+	return map[string]string{
+		"": "Represent virtual IOMMU device that can be accessed by VMI.\n\nThe struct is currently empty as there is no imediate request for\nuser-facing APIs. This structure simply turns add a virtual IOMMU device\nwith sane default paramters.\n\n+k8s:openapi-gen=true",
 	}
 }
 

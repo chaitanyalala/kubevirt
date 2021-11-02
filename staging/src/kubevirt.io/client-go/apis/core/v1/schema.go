@@ -498,6 +498,19 @@ type Devices struct {
 	// To configure and access client devices such as redirecting USB
 	// +optional
 	ClientPassthrough *ClientPassthroughDevices `json:"clientPassthrough,omitempty"`
+	// To enable a virtual IOMMU. If not enabled, VFIO-PCI and nested virtualization will not work.
+	// +optional
+	Iommu *IommuDevice `json:"iommu,omitempty"`
+}
+
+// Represent virtual IOMMU device that can be accessed by VMI.
+//
+// The struct is currently empty as there is no imediate request for
+// user-facing APIs. This structure add a virtual IOMMU device
+// with sane default paramters.
+//
+// +k8s:openapi-gen=true
+type IommuDevice struct {
 }
 
 // Represent a subset of client devices that can be accessed by VMI. At the

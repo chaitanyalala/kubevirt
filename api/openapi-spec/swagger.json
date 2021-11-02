@@ -11480,6 +11480,10 @@
        "$ref": "#/definitions/v1.Interface"
       }
      },
+     "iommu": {
+      "description": "To enable a virtual IOMMU. If not enabled, VFIO-PCI and nested virtualization will not work.",
+      "$ref": "#/definitions/v1.IommuDevice"
+     },
      "networkInterfaceMultiqueue": {
       "description": "If specified, virtual network interfaces configured with a virtio bus will also enable the vhost multiqueue feature for network devices. The number of queues created depends on additional factors of the VirtualMachineInstance, like the number of guest CPUs.",
       "type": "boolean"
@@ -12223,6 +12227,10 @@
     "type": "object"
    },
    "v1.InterfaceSlirp": {
+    "type": "object"
+   },
+   "v1.IommuDevice": {
+    "description": "Represent virtual IOMMU device that can be accessed by VMI.\n\nThe struct is currently empty as there is no imediate request for user-facing APIs. This structure simply turns add a virtual IOMMU device with sane default paramters.",
     "type": "object"
    },
    "v1.KVMTimer": {

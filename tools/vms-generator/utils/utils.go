@@ -141,6 +141,7 @@ func initFedoraWithDisk(spec *v1.VirtualMachineInstanceSpec, containerDisk strin
 func initFedora(spec *v1.VirtualMachineInstanceSpec) *v1.VirtualMachineInstanceSpec {
 	addContainerDisk(spec, fmt.Sprintf("%s/%s:%s", DockerPrefix, imageFedora, DockerTag), busVirtio)
 	addRNG(spec) // without RNG, newer fedora images may hang waiting for entropy sources
+	addIOMMU(spec)
 	return spec
 }
 func enableNetworkInterfaceMultiqueue(spec *v1.VirtualMachineInstanceSpec, enable bool) {
@@ -165,6 +166,11 @@ func setDefaultNetworkAndInterface(spec *v1.VirtualMachineInstanceSpec, bindingM
 
 func addRNG(spec *v1.VirtualMachineInstanceSpec) *v1.VirtualMachineInstanceSpec {
 	spec.Domain.Devices.Rng = &v1.Rng{}
+	return spec
+}
+
+func addIOMMU(spec *v1.VirtualMachineInstanceSpec) *v1.VirtualMachineInstanceSpec {
+	spec.Domain.Devices.Iommu = &v1.IommuDevice{}
 	return spec
 }
 

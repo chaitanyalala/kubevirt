@@ -294,6 +294,12 @@ var _ = Describe("Defaults", func() {
 		SetObjectDefaults_VirtualMachineInstance(vmi)
 		Expect(vmi.Spec.Domain.IOThreadsPolicy).To(BeNil(), "Default IOThreadsPolicy should be nil")
 	})
+
+	It("should omit IOMMU by default", func() {
+		vmi := &VirtualMachineInstance{}
+		SetObjectDefaults_VirtualMachineInstance(vmi)
+		Expect(vmi.Spec.Domain.Devices.Iommu).To(BeNil(), "Default IOMMU should be nil")
+	})
 })
 
 var _ = Describe("Function SetDefaults_NetworkInterface()", func() {
