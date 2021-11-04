@@ -12230,7 +12230,7 @@
     "type": "object"
    },
    "v1.IommuDevice": {
-    "description": "Represent virtual IOMMU device that can be accessed by VMI.\n\nThe struct is currently empty as there is no imediate request for user-facing APIs. This structure simply turns add a virtual IOMMU device with sane default paramters.",
+    "description": "Represent virtual IOMMU device that can be accessed by VMI.\n\nThe struct is currently empty as there is no imediate request for user-facing APIs. This structure add a virtual IOMMU device with sane default paramters.",
     "type": "object"
    },
    "v1.KVMTimer": {

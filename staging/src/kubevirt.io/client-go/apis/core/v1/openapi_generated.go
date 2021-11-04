@@ -21419,7 +21419,7 @@ func schema_client_go_apis_core_v1_IommuDevice(ref common.ReferenceCallback) com
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "Represent virtual IOMMU device that can be accessed by VMI.\n\nThe struct is currently empty as there is no imediate request for user-facing APIs. This structure simply turns add a virtual IOMMU device with sane default paramters.",
+				Description: "Represent virtual IOMMU device that can be accessed by VMI.\n\nThe struct is currently empty as there is no imediate request for user-facing APIs. This structure add a virtual IOMMU device with sane default paramters.",
 				Type:        []string{"object"},
 			},
 		},

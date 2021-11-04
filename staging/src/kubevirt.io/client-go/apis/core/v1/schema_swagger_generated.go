@@ -255,7 +255,7 @@ func (Devices) SwaggerDoc() map[string]string {
 
 func (IommuDevice) SwaggerDoc() map[string]string {
 	return map[string]string{
-		"": "Represent virtual IOMMU device that can be accessed by VMI.\n\nThe struct is currently empty as there is no imediate request for\nuser-facing APIs. This structure simply turns add a virtual IOMMU device\nwith sane default paramters.\n\n+k8s:openapi-gen=true",
+		"": "Represent virtual IOMMU device that can be accessed by VMI.\n\nThe struct is currently empty as there is no imediate request for\nuser-facing APIs. This structure add a virtual IOMMU device\nwith sane default paramters.\n\n+k8s:openapi-gen=true",
 	}
 }
 
