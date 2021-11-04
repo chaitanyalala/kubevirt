@@ -14432,8 +14432,15 @@ func schema_client_go_apis_core_v1_ComponentConfig(ref common.ReferenceCallback)
 				Properties: map[string]spec.Schema{
 					"nodePlacement": {
 						SchemaProps: spec.SchemaProps{
-							Description: "nodePlacement decsribes scheduling confiuguration for specific KubeVirt components",
+							Description: "nodePlacement describes scheduling configuration for specific KubeVirt components",
 							Ref:         ref("kubevirt.io/client-go/apis/core/v1.NodePlacement"),
+						},
+					},
+					"replicas": {
+						SchemaProps: spec.SchemaProps{
+							Description: "replicas indicates how many replicas should be created for each KubeVirt infrastructure component (like virt-api or virt-controller). Defaults to 2.",
+							Type:        []string{"integer"},
+							Format:      "byte",
 						},
 					},
 				},
@@ -17841,6 +17848,13 @@ func schema_client_go_apis_core_v1_PersistentVolumeClaimInfo(ref common.Referenc
 						SchemaProps: spec.SchemaProps{
 							Description: "Preallocated indicates if the PVC's storage is preallocated or not",
 							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"filesystemOverhead": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Percentage of filesystem's size to be reserved when resizing the PVC",
+							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
