@@ -245,15 +245,21 @@ var CRDsValidation map[string]string = map[string]string{
                   description: CertConfigMap provides a reference to the Registry
                     certs
                   type: string
+                imageStream:
+                  description: ImageStream is the name of image stream for import
+                  type: string
+                pullMethod:
+                  description: PullMethod can be either "pod" (default import), or
+                    "node" (node docker cache based import)
+                  type: string
                 secretRef:
                   description: SecretRef provides the secret reference needed to access
                     the Registry source
                   type: string
                 url:
-                  description: URL is the url of the Docker registry source
+                  description: 'URL is the url of the registry source (starting with
+                    the scheme: docker, oci-archive)'
                   type: string
-              required:
-              - url
               type: object
             s3:
               description: DataVolumeSourceS3 provides the parameters to create a
@@ -2663,15 +2669,22 @@ var CRDsValidation map[string]string = map[string]string{
                             description: CertConfigMap provides a reference to the
                               Registry certs
                             type: string
+                          imageStream:
+                            description: ImageStream is the name of image stream for
+                              import
+                            type: string
+                          pullMethod:
+                            description: PullMethod can be either "pod" (default import),
+                              or "node" (node docker cache based import)
+                            type: string
                           secretRef:
                             description: SecretRef provides the secret reference needed
                               to access the Registry source
                             type: string
                           url:
-                            description: URL is the url of the Docker registry source
+                            description: 'URL is the url of the registry source (starting
+                              with the scheme: docker, oci-archive)'
                             type: string
-                        required:
-                        - url
                         type: object
                       s3:
                         description: DataVolumeSourceS3 provides the parameters to
@@ -4046,6 +4059,28 @@ var CRDsValidation map[string]string = map[string]string{
                                 description: Name of the GPU device as exposed by
                                   a device plugin
                                 type: string
+                              virtualGPUOptions:
+                                properties:
+                                  display:
+                                    properties:
+                                      enabled:
+                                        description: Enabled determines if a display
+                                          addapter backed by a vGPU should be enabled
+                                          or disabled on the guest. Defaults to true.
+                                        type: boolean
+                                      ramFB:
+                                        description: Enables a boot framebuffer, until
+                                          the guest OS loads a real GPU driver Defaults
+                                          to true.
+                                        properties:
+                                          enabled:
+                                            description: Enabled determines if the
+                                              feature should be enabled or disabled
+                                              on the guest. Defaults to true.
+                                            type: boolean
+                                        type: object
+                                    type: object
+                                type: object
                             required:
                             - deviceName
                             - name
@@ -7010,6 +7045,27 @@ var CRDsValidation map[string]string = map[string]string{
                         description: Name of the GPU device as exposed by a device
                           plugin
                         type: string
+                      virtualGPUOptions:
+                        properties:
+                          display:
+                            properties:
+                              enabled:
+                                description: Enabled determines if a display addapter
+                                  backed by a vGPU should be enabled or disabled on
+                                  the guest. Defaults to true.
+                                type: boolean
+                              ramFB:
+                                description: Enables a boot framebuffer, until the
+                                  guest OS loads a real GPU driver Defaults to true.
+                                properties:
+                                  enabled:
+                                    description: Enabled determines if the feature
+                                      should be enabled or disabled on the guest.
+                                      Defaults to true.
+                                    type: boolean
+                                type: object
+                            type: object
+                        type: object
                     required:
                     - deviceName
                     - name
@@ -9015,6 +9071,27 @@ var CRDsValidation map[string]string = map[string]string{
                         description: Name of the GPU device as exposed by a device
                           plugin
                         type: string
+                      virtualGPUOptions:
+                        properties:
+                          display:
+                            properties:
+                              enabled:
+                                description: Enabled determines if a display addapter
+                                  backed by a vGPU should be enabled or disabled on
+                                  the guest. Defaults to true.
+                                type: boolean
+                              ramFB:
+                                description: Enables a boot framebuffer, until the
+                                  guest OS loads a real GPU driver Defaults to true.
+                                properties:
+                                  enabled:
+                                    description: Enabled determines if the feature
+                                      should be enabled or disabled on the guest.
+                                      Defaults to true.
+                                    type: boolean
+                                type: object
+                            type: object
+                        type: object
                     required:
                     - deviceName
                     - name
@@ -10800,6 +10877,28 @@ var CRDsValidation map[string]string = map[string]string{
                                 description: Name of the GPU device as exposed by
                                   a device plugin
                                 type: string
+                              virtualGPUOptions:
+                                properties:
+                                  display:
+                                    properties:
+                                      enabled:
+                                        description: Enabled determines if a display
+                                          addapter backed by a vGPU should be enabled
+                                          or disabled on the guest. Defaults to true.
+                                        type: boolean
+                                      ramFB:
+                                        description: Enables a boot framebuffer, until
+                                          the guest OS loads a real GPU driver Defaults
+                                          to true.
+                                        properties:
+                                          enabled:
+                                            description: Enabled determines if the
+                                              feature should be enabled or disabled
+                                              on the guest. Defaults to true.
+                                            type: boolean
+                                        type: object
+                                    type: object
+                                type: object
                             required:
                             - deviceName
                             - name
@@ -12737,17 +12836,25 @@ var CRDsValidation map[string]string = map[string]string{
                                         description: CertConfigMap provides a reference
                                           to the Registry certs
                                         type: string
+                                      imageStream:
+                                        description: ImageStream is the name of image
+                                          stream for import
+                                        type: string
+                                      pullMethod:
+                                        description: PullMethod can be either "pod"
+                                          (default import), or "node" (node docker
+                                          cache based import)
+                                        type: string
                                       secretRef:
                                         description: SecretRef provides the secret
                                           reference needed to access the Registry
                                           source
                                         type: string
                                       url:
-                                        description: URL is the url of the Docker
-                                          registry source
+                                        description: 'URL is the url of the registry
+                                          source (starting with the scheme: docker,
+                                          oci-archive)'
                                         type: string
-                                    required:
-                                    - url
                                     type: object
                                   s3:
                                     description: DataVolumeSourceS3 provides the parameters
@@ -14299,6 +14406,31 @@ var CRDsValidation map[string]string = map[string]string{
                                             description: Name of the GPU device as
                                               exposed by a device plugin
                                             type: string
+                                          virtualGPUOptions:
+                                            properties:
+                                              display:
+                                                properties:
+                                                  enabled:
+                                                    description: Enabled determines
+                                                      if a display addapter backed
+                                                      by a vGPU should be enabled
+                                                      or disabled on the guest. Defaults
+                                                      to true.
+                                                    type: boolean
+                                                  ramFB:
+                                                    description: Enables a boot framebuffer,
+                                                      until the guest OS loads a real
+                                                      GPU driver Defaults to true.
+                                                    properties:
+                                                      enabled:
+                                                        description: Enabled determines
+                                                          if the feature should be
+                                                          enabled or disabled on the
+                                                          guest. Defaults to true.
+                                                        type: boolean
+                                                    type: object
+                                                type: object
+                                            type: object
                                         required:
                                         - deviceName
                                         - name
